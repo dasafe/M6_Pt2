@@ -12,8 +12,8 @@ public class Ej1 {
 		try {
 			s = new Scanner(fichero);
 
-			while (s.hasNextLine()) {
-				String linea = s.nextLine();
+			while (s.hasNext()) {
+				String linea = s.next();
 				System.out.println(linea);
 			}
 
