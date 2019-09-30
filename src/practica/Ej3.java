@@ -1,31 +1,60 @@
 package practica;
 
 import java.io.File;
-import java.io.FileWriter;
 
 public class Ej3 {
 	public static void main(String[] args) {
 
-		String[] lineas = { "Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "..." };
-
 		new File("MyFiles").mkdirs();
-		FileWriter fichero1 = null;
-		FileWriter fichero2 = null;
+		File fichero1 = null;
+		File fichero2 = null;
 		try {
 
-			fichero1 = new FileWriter("MyFiles\\fichero1.txt");
-			fichero2 = new FileWriter("MyFiles\\fichero2.txt");
+			fichero1 = new File("MyFiles\\fichero1.txt");
+			fichero2 = new File("MyFiles\\fichero2.txt");
 
-//			for (String linea : lineas) {
-//				fichero1.write(linea + "\n");
-//			}
-			File newFichero2 = new File("ficheroRenombrado");
-			
-			fichero1.close();
-			fichero2.close();
+			// Creando ficheros
+			if (fichero1.createNewFile() && fichero2.createNewFile()) {
+				System.out.println("Ficheros creados");
+			} else {
+				System.out.println("No se han podido crear los ficheros");
+			}
+
+			// Renombrar fichero2
+			System.out.println();
+			File newFichero2 = new File("MyFiles\\ficheroRenombrado.txt");
+			if (fichero2.renameTo(newFichero2)) {
+				System.out.println("Fichero2 renombrado");
+			} else {
+				System.out.println("Fichero2 no se ha podido renombrar");
+			}
+
+			// Listar ficheros
+			System.out.println();
+			File f = new File("MyFiles");
+			File[] ficheros1 = f.listFiles();
+			System.out.println("- MyFiles -");
+			for (int i = 0; i < ficheros1.length; i++) {
+				System.out.println(ficheros1[i].getName());
+			}
+
+			// Eliminar fichero1
+			System.out.println();
+			if (fichero1.delete()) {
+				System.out.println("Fichero1 eliminado");
+			} else {
+				System.out.println("Fichero1 no se ha podido eliminar");
+			}
+
+			// Listar ficheros
+			File[] ficheros2 = f.listFiles();
+			System.out.println("- MyFiles -");
+			for (int i = 0; i < ficheros2.length; i++) {
+				System.out.println(ficheros2[i].getName());
+			}
 
 		} catch (Exception ex) {
-			System.out.println("Mensaje de la excepción: " + ex.getMessage());
+			System.out.println("Mensaje de la excepciÃ³n: " + ex.getMessage());
 		}
 	}
 }
